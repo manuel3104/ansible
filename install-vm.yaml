@@ -1,0 +1,12 @@
+---
+- hosts: all
+
+  become: true
+  tasks:
+    - name: Install core packages
+      apt:
+        name:
+        -   unzip
+        -   neofetch
+        -   fail2ban
+        update_cache: yes

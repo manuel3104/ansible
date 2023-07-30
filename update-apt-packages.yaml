@@ -7,3 +7,20 @@
       apt:
         upgrade: yes
         update_cache: yes
+    
+    - name: check if system reboot is required
+      become: true
+      stat:
+        path: /var/run/reboot-required
+      register: reboot_required
+      
+      
+     - name: send discord message
+      uri:
+        url: "https://discord.com/api/webhooks/1135255405317079140/xtpVwe5U-6gZ9dKQIzG66AvTu4BqzsZ7vz6da1Nlh1X32jD5NEMs8JbMzLTe0r2ctnms"
+        method: POST
+        body_format: json
+        body: '{"content": "reboot required on {{ inventory_hostname }}"}'
+        headers:
+          Content-Type: application/json
+        status_code: 204
